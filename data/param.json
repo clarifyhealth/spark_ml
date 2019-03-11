@@ -1,0 +1,38 @@
+{
+  "idColumn": "key",
+  "labelColumn": "churn",
+  "ignoredColumns": [
+    "state",
+    "area_code",
+    "total_day_charge",
+    "total_eve_charge",
+    "total_night_charge",
+    "total_intl_charge"
+  ],
+  "categoricalColumns": [
+    "international_plan",
+    "voice_mail_plan"
+  ],
+  "randomSplit": [
+    0.8,
+    0.2
+  ],
+  "seed": 100,
+  "regParam": [
+    0.01,
+    0.5,
+    2.0
+  ],
+  "elasticNetParam": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "maxIter": [
+    1,
+    5,
+    10
+  ],
+  "metricName": "areaUnderROC",
+  "numFolds": 2
+}

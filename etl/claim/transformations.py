@@ -5,9 +5,12 @@ from pyspark.sql import functions as F
 
 def handle_patient_registration(source_df):
     """
+     This methods applies transformations to tha_patient_registration to make it compatible with abstract schema
+    Args:
+        source_df: tha_patient_registration Dataframe
 
-    :param source_df:
-    :return:
+    Returns:
+        pat_reg_df: transformed tha_patient_registration Dataframe
     """
     pat_reg_df = source_df.withColumn("claim_id", F.md5(F.concat(F.lit("tha"),
                                                                  F.coalesce(source_df.fac, F.lit("")),
@@ -43,10 +46,15 @@ def handle_patient_registration(source_df):
 
 def extract_patient_id(pat_reg_df, tha_upk_df):
     """
+     This methods joins to tha_patient_registration with tha_upk to fetch patient_id
 
-    :param pat_reg_df:
-    :param tha_upk_df:
-    :return:
+    Args:
+        pat_reg_df: transformed tha_patient_registration Dataframe
+        tha_upk_df: tha_upk Dataframe
+
+    Returns:
+
+        result_df:  transformed tha_patient_registration with patient_id Dataframe
     """
     exclude = []
     select_col = [F.col(c) for c in pat_reg_df.columns if c not in exclude] + [
@@ -59,11 +67,17 @@ def extract_patient_id(pat_reg_df, tha_upk_df):
 
 def extract_organization_nm(pat_reg_df, tha_hospital_ref_df):
     """
+     This methods joins to tha_patient_registration with tha_hospital_ref to fetch organization_nm
 
-    :param pat_reg_df:
-    :param tha_hospital_ref_df:
-    :return:
+    Args:
+        pat_reg_df: transformed tha_patient_registration Dataframe
+        tha_hospital_ref_df: tha_hospital_ref Dataframe
+
+    Returns:
+        result_df:  transformed tha_patient_registration with organization_nm Dataframe
+
     """
+
     exclude = ["source_file", "source_file_date", "load_date", "reload"]
 
     select_col = [F.col(c) for c in pat_reg_df.columns if c not in exclude] + [
@@ -77,10 +91,15 @@ def extract_organization_nm(pat_reg_df, tha_hospital_ref_df):
 
 def extract_total_payment_amount(pat_reg_df, tha_charges_df):
     """
+     This methods joins to tha_patient_registration with tha_charges to fetch total_payment_amt
 
-    :param pat_reg_df:
-    :param tha_charges_df:
-    :return:
+    Args:
+        pat_reg_df: transformed tha_patient_registration Dataframe
+        tha_charges_df: tha_charges Dataframe
+
+    Returns:
+        result_df:  transformed tha_patient_registration with total_payment_amt Dataframe
+
     """
     exclude = ["source_file", "source_file_date", "load_date", "reload"]
 

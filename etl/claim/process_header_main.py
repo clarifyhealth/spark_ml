@@ -8,11 +8,14 @@ from pyspark.sql import SparkSession
 
 def run_job(spark, args, logger):
     """
+    This method runs loads , joins various sources to extract information
+    Args:
+        spark: SparkSession
+        args: Namespace arguments
+        logger: Spark Log4j logger
 
-    :param spark:
-    :param args:
-    :param logger:
-    :return:
+    Returns:
+     claim_header_df: Returns the final Dataframe
     """
     # Process tha_patient_registration
     logger.info("start processing source tha_patient_registration")
@@ -60,9 +63,12 @@ def run_job(spark, args, logger):
 
 def parse_parameters(main_args):
     """
+    This method parses arguments
+    Args:
+        main_args: Arguments
 
-    :param main_args:
-    :return:
+    Returns:
+       args : parsed arguments
     """
     parser = argparse.ArgumentParser(description="Claim Header ELT Pipeline")
     parser.add_argument("--tha_patient_registration", required=True, help="s3 source url")
@@ -76,10 +82,14 @@ def parse_parameters(main_args):
 
 def main(main_args):
     """
+    This is the main entry method parses arguments and invokes run_job
+    Args:
+        main_args:
 
-    :param main_args:
-    :return:
+    Returns:
+
     """
+
     args = parse_parameters(main_args)
 
     spark = SparkSession.builder.getOrCreate()

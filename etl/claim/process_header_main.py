@@ -19,6 +19,7 @@ def run_job(spark, args, logger):
 
     pat_reg_df = spark.read.option("delimiter", "|").option("timestampFormat", "yyy-MM-dd HH:mm:ss.SSSSSS").schema(
         tha_pat_reg_schema).csv(args.tha_patient_registration)
+
     pat_reg_transformed_df = handle_patient_registration(pat_reg_df)
 
     logger.info("end processing source tha_patient_registration")
@@ -28,6 +29,7 @@ def run_job(spark, args, logger):
 
     tha_upk_df = spark.read.option("delimiter", "|").option("timestampFormat", "yyy-MM-dd HH:mm:ss.SSSSSS").schema(
         tha_upk_schema).csv(args.tha_upk)
+
     pat_id_df = extract_patient_id(pat_reg_transformed_df, tha_upk_df)
 
     logger.info("end processing source tha_upk")
@@ -38,6 +40,7 @@ def run_job(spark, args, logger):
     tha_hospital_ref_df = spark.read.option("delimiter", "|").option("timestampFormat",
                                                                      "yyy-MM-dd HH:mm:ss.SSSSSS").schema(
         tha_hospital_ref_schema).csv(args.tha_hospital_ref)
+
     pat_org_nm_df = extract_organization_nm(pat_id_df, tha_hospital_ref_df)
 
     logger.info("end processing source tha_hospital_ref")
@@ -47,7 +50,9 @@ def run_job(spark, args, logger):
 
     charges_df = spark.read.option("delimiter", "|").option("timestampFormat", "yyy-MM-dd HH:mm:ss.SSSSSS").schema(
         tha_charges_schema).csv(args.tha_charges)
+
     claim_header_df = extract_total_payment_amount(pat_org_nm_df, charges_df)
+    
     logger.info("end processing source tha_charges")
 
     return claim_header_df
@@ -55,7 +60,7 @@ def run_job(spark, args, logger):
 
 def parse_parameters(main_args):
     """
-    
+
     :param main_args:
     :return:
     """

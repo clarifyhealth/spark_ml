@@ -11,6 +11,8 @@ tail = [StructField("source_code", StringType(), True),
         StructField("load_date", TimestampType(), True),
         StructField("reload", StringType(), True)]
 
+# tha_patient_registration schema
+
 tha_pat_reg_schema = StructType(header + [
     StructField("fiscalyear", IntegerType(), True),
     StructField("hospstateabbr", StringType(), True),
@@ -54,6 +56,8 @@ tha_pat_reg_schema = StructType(header + [
     StructField("dischrg_hour", IntegerType(), True)
 ] + tail)
 
+# tha_upk schema
+
 tha_upk_schema = StructType([
     StructField("dkey", StringType(), True),
     StructField("patssn", StringType(), True),
@@ -67,6 +71,8 @@ tha_upk_schema = StructType([
     StructField("column_9", StringType(), True)
 ])
 
+# tha_hospital_ref schema
+
 tha_hospital_ref_schema = StructType([
                                          StructField("fac", StringType(), True),
                                          StructField("hospcnty", StringType(), True),
@@ -78,6 +84,7 @@ tha_hospital_ref_schema = StructType([
                                          StructField("zip", StringType(), True)
                                      ] + tail)
 
+# tha_charges schema
 tha_charges_schema = StructType(header + [StructField("expchrg", DoubleType(), True),
                                           StructField("routchrg", DoubleType(), True),
                                           StructField("icuchrg", DoubleType(), True),

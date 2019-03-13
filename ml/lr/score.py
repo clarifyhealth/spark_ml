@@ -1,9 +1,8 @@
 import argparse
 
+from ml.common.builder import PipelineBuilder
 from pyspark.ml.tuning import CrossValidatorModel
 from pyspark.sql import SparkSession
-
-from ml.common.builder import PipelineBuilder
 
 
 def run_job(source_df, config_df, cv_model):
@@ -17,9 +16,13 @@ def run_job(source_df, config_df, cv_model):
 def main(main_args):
     """
 
-    :param main_args:
-    :return:
+    Args:
+        main_args:
+
+    Returns:
+
     """
+
     parser = argparse.ArgumentParser(description="train spark pipeline for simple logistic regression")
     parser.add_argument("--source", required=True, help="s3 source url")
     parser.add_argument("--config", required=True, help="s3 source url")

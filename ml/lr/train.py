@@ -1,19 +1,21 @@
 import argparse
 
+from ml.common.builder import PipelineBuilder
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.evaluation import BinaryClassificationEvaluator
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
 from pyspark.sql import Row, SparkSession
 
-from ml.common.builder import PipelineBuilder
-
 
 def build_model(source_df, config_df):
     """
 
-    :param source_df:
-    :param config_df:
-    :return:
+    Args:
+        source_df:
+        config_df:
+
+    Returns:
+
     """
     config_dict = config_df.asDict()
     pipeline_builder = PipelineBuilder(source_df, config_dict)
@@ -49,8 +51,11 @@ def build_model(source_df, config_df):
 def main(main_args):
     """
 
-    :param main_args:
-    :return:
+    Args:
+        main_args:
+
+    Returns:
+
     """
     parser = argparse.ArgumentParser(description="train spark pipeline for simple logistic regression")
     parser.add_argument("--source", required=True, help="s3 source url")

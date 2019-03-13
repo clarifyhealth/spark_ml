@@ -7,8 +7,9 @@ class StageBuilder(object):
     def __init__(self, source_df, json_args):
         """
 
-        :param source_df:
-        :param json_args:
+        Args:
+            source_df:
+            json_args:
         """
         self.source_df = source_df
         self.all_columns = source_df.columns
@@ -49,7 +50,7 @@ class StageBuilder(object):
         numeric_or_vector_columns = [item for item in self.all_used_columns if
                                      item not in self.all_used_categorical_columns]
         assembler_inputs = [c + "_class_vec" for c in self.all_used_categorical_columns] + numeric_or_vector_columns
-     
+
         return assembler_inputs
 
 
@@ -58,15 +59,17 @@ class PipelineBuilder(StageBuilder):
     def __init__(self, source_df, json_args):
         """
 
-        :param source_df:
-        :param json_args:
+        Args:
+            source_df:
+            json_args:
         """
         super(PipelineBuilder, self).__init__(source_df, json_args)
 
     def transform(self):
         """
 
-        :return:
+        Returns:
+
         """
         all_stages = super(PipelineBuilder, self).vector_assembler()
         pipeline = Pipeline(stages=all_stages)

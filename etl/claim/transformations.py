@@ -32,8 +32,8 @@ def handle_patient_registration(source_df):
         .withColumn("discharge_dt", pat_reg_df.ddat) \
         .withColumn("admission_referral_source_cd", admission_referral_source_cd(pat_reg_df.asource)) \
         .withColumnRenamed("drg", "drg_cd") \
-        .select("fac", "dkey", "claim_id", "claim_type_cd", "claim_type_txt", "claim_start_dt" "claim_end_dt",
-                "primary_diagnosis_cd", "primary_diagnosis_code_type_cd", "primary_diagnosis_code_type_cd",
+        .select("fac", "dkey", "claim_id", "claim_type_cd", "claim_type_txt", "claim_start_dt", "claim_end_dt",
+                "primary_diagnosis_cd", "primary_diagnosis_code_type_cd", "attending_provider_npi",
                 "organization_state_cd", "utilization_day_cnt", "admit_dt", "admit_type_cd", "length_of_stay_val",
                 "discharge_dt", "admission_referral_source_cd", "drg_cd", "source_code", "source_year", "source_qtr"
                 )

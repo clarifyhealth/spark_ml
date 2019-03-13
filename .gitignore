@@ -117,3 +117,4 @@ scripts/.DS_Store
 
 tests/metastore_db
 metastore_db
+emrcli_dev

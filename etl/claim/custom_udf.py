@@ -17,8 +17,8 @@ def claim_type_code(source_cd):
 def claim_type_txt(source_cd):
     if source_cd == "IP":
         type_cd = "Inpatient"
-    elif source_cd == "Outpatient":
-        type_cd = "OP"
+    elif source_cd == "OP":
+        type_cd = "Outpatient"
     else:
         type_cd = None
     return type_cd

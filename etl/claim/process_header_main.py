@@ -52,7 +52,7 @@ def run_job(spark, args, logger):
         tha_charges_schema).csv(args.tha_charges)
 
     claim_header_df = extract_total_payment_amount(pat_org_nm_df, charges_df)
-    
+
     logger.info("end processing source tha_charges")
 
     return claim_header_df
@@ -90,7 +90,7 @@ def main(main_args):
 
     logger.info("Start pipeline")
 
-    claim_header_df = run_job(args, logger, spark)
+    claim_header_df = run_job(spark, args, logger)
 
     logger.info(f"Start writing final output to {args.target}")
 

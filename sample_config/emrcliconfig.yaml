@@ -14,7 +14,7 @@ emr_additional_slave_security_group: [sg-072ed04d71deb0d72]
 emr_additional_master_security_group: [sg-072ed04d71deb0d72]
 
 instance_type: m4.4xlarge
-instance_count: 1
+instance_count: 2
 instance_volume_size: 100
 
 cores_per_executor: 3

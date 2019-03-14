@@ -1,0 +1,40 @@
+---
+ENV: dev
+aws_profile: default
+job_name: test_cluster
+user: alvin
+key_pair: alvin
+
+release_label: emr-5.21.0
+emr_log_bucket: aws-logs-947634201780-us-west-2
+subnetid: subnet-0db21c74
+emr_managed_slave_security_group: sg-0d214c3c44e94030f
+emr_managed_master_security_group: sg-02e0550e111304a5a
+emr_additional_slave_security_group: [sg-072ed04d71deb0d72]
+emr_additional_master_security_group: [sg-072ed04d71deb0d72]
+
+instance_type: m4.4xlarge
+instance_count: 1
+instance_volume_size: 100
+
+cores_per_executor: 3
+auto_terminate: False
+
+spot_bid_price: 0.4
+
+request_master_on_demand: True
+request_core_on_demand: True
+
+configuration: configurations.json
+bootstrapaction: bootstrap-actions.json
+steps: steps.json
+
+pem_file_path: /Users/alvin/.ssh/id_rsa
+script_to_run: test.sh
+
+tags:
+  - Key: "User"
+    Value: "alvin"
+
+  - Key: "Description"
+    Value: "Data Science EMR Cluster"

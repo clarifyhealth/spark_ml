@@ -1,0 +1,33 @@
+[
+  {
+    "Name": "process_claim_header",
+    "ActionOnFailure": "CONTINUE",
+    "HadoopJarStep": {
+      "Jar": "command-runner.jar",
+      "Args": [
+        "spark-submit",
+        "--deploy-mode",
+        "cluster",
+        "--name",
+        "process_claim_header",
+        "--executor-cores",
+        "${executor_cores}",
+        "--executor-memory",
+        "${executor_memory}g",
+        "--driver-memory",
+        "${driver_memory}g",
+        "--conf",
+        "spark.yarn.appMasterEnv.PYSPARK_PYTHON=python3",
+        "--conf",
+        "spark.executorEnv.PYSPARK_PYTHON=python3",
+        "/usr/local/lib/python3.6/site-packages/ml/driver.py",
+        "etl.claim.process_header_main",
+        "--tha_patient_registration=s3://clarify-datasource-bucket/temp/tha/tha_patientregistration.csv.gz",
+        "--tha_upk=s3://clarify-datasource-bucket/temp/tha/tha_upk.csv.gz",
+        "--tha_charges=s3://clarify-datasource-bucket/temp/tha/tha_charges.csv.gz",
+        "--tha_hospital_ref=s3://clarify-datasource-bucket/temp/tha/tha_hospitalref.csv.gz",
+        "--target=s3://aws-logs-947634201780-us-west-2/data/v1/day=${full_day}"
+      ]
+    }
+  }
+]

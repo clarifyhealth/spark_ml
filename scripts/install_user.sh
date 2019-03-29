@@ -7,5 +7,5 @@ for i in ${USERS};
 do
    sudo docker exec jupyterhub useradd -m -s /bin/bash -N $i
    sudo docker exec jupyterhub bash -c "echo ${i}:${i} | chpasswd"
-   curl -XPOST --silent -k https://$(hostname):9443/hub/api/users/${i} -H "Authorization: token $TOKEN" | jq
+   curl -XPOST --silent -k https://$(hostname):9443/hub/api/users/${i} -H "Authorization: token $TOKEN" | jq . >file
 done

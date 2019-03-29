@@ -8,3 +8,4 @@ uploadsc:
 	aws s3 cp scripts/install_pip3_dependencies.sh s3://workbenches-emr-misc/scripts/
 	aws s3 cp scripts/install_pipeline.sh s3://workbenches-emr-misc/scripts/
 	aws s3 cp scripts/install_user.sh s3://workbenches-emr-misc/scripts/
+	aws s3 cp scripts/install_redshift_jars.sh s3://workbenches-emr-misc/scripts/

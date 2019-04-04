@@ -6,16 +6,19 @@ user: alvin
 key_pair: alvin
 
 release_label: emr-5.21.0
-emr_log_bucket: aws-logs-947634201780-us-west-2
-subnetid: subnet-0db21c74
-emr_managed_slave_security_group: sg-0d214c3c44e94030f
-emr_managed_master_security_group: sg-02e0550e111304a5a
-emr_additional_slave_security_group: [sg-072ed04d71deb0d72]
-emr_additional_master_security_group: [sg-072ed04d71deb0d72]
+emr_log_bucket: workbenches-emr-logs
+subnetid: subnet-08af9b271c2d14237
+emr_managed_slave_security_group: sg-01b09b9827de3b1cc
+emr_managed_master_security_group: sg-0842fae4e52e5246c
+emr_additional_slave_security_group: [sg-07a00b0167ffdc55b]
+emr_additional_master_security_group: [sg-07a00b0167ffdc55b]
 
+
+# 0 instance count will run single master node
 instance_type: m4.4xlarge
-instance_count: 2
+instance_count: 3
 instance_volume_size: 100
+instance_profile: workbenches-emr-ec2-profile-role
 
 cores_per_executor: 3
 auto_terminate: False

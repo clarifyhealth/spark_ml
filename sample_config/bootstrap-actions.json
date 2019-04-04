@@ -2,7 +2,7 @@
   {
     "Name": "pip-install-pipeline",
     "ScriptBootstrapAction": {
-      "Path": "s3://aws-logs-947634201780-us-west-2/scripts/install_pipeline.sh",
+      "Path": "s3://workbenches-emr-misc/scripts/install_pipeline.sh",
       "Args": [
         "spark_ml-0.0.1.tar.gz"
       ]

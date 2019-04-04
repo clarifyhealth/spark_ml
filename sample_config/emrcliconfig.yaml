@@ -1,7 +1,7 @@
 ---
 ENV: dev
 aws_profile: default
-job_name: test_cluster
+job_name: spark_etl_pipeline
 user: alvin
 key_pair: alvin
 

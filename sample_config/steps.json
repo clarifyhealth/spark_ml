@@ -26,7 +26,7 @@
         "--tha_upk=s3://clarify-datasource-bucket/temp/tha/tha_upk.csv.gz",
         "--tha_charges=s3://clarify-datasource-bucket/temp/tha/tha_charges.csv.gz",
         "--tha_hospital_ref=s3://clarify-datasource-bucket/temp/tha/tha_hospitalref.csv.gz",
-        "--target=s3://workbenches-emr-misc/data/v1/day=${full_day}"
+        "--target=s3://workbenches-emr-data/data/v1/day=${full_day}"
       ]
     }
   }

@@ -1,12 +1,11 @@
-""" pytest fixtures that can be resued across tests. the filename needs to be conftest.py
-"""
 import logging
+from pathlib import Path
 
-# make sure env variables are set correctly
 import findspark  # this needs to be the first import
 import pytest
 
 from pyspark.sql import SparkSession
+from pyspark.sql.types import LongType
 
 findspark.init()
 
@@ -23,8 +22,14 @@ def spark_session(request):
     Args:
         request: pytest.FixtureRequest object
     """
-    session = SparkSession.builder.appName("pytest-pyspark-local-testing").master(
-        "local[2]").enableHiveSupport().getOrCreate()
+    lib_dir = Path(__file__).parent.joinpath('udf/')
+
+    session = SparkSession.builder.appName("pytest-pyspark-local-testing") \
+        .master("local[2]") \
+        .config("spark.jars", f"file://{lib_dir.joinpath('spark-demo-assembly-0.1.jar')}") \
+        .enableHiveSupport().getOrCreate()
+    session.udf.registerJavaFunction("word_count", "com.clarify.WordCount", LongType())
+
     request.addfinalizer(lambda: session.stop())
 
     quiet_py4j()

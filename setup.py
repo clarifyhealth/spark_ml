@@ -18,7 +18,7 @@ def parse_requirements(file):
 
 
 requirements = parse_requirements('requirements.txt')
-test_requirements = parse_requirements('requirements-dev.txt')
+test_requirements = parse_requirements('requirements-test.txt')
 
 setup(name=package_name,
       version=version,

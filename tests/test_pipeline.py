@@ -1,6 +1,8 @@
 import pytest
 
-from etl.udf.utils import example_py_udf, example_scala_udf, example_vectorized_udf, example_built_in_udf
+from etl.custom.transformers import MyWordCounterPyUDF, MyWordCounterScalaUDF, MyWordCounterVectorizedUDF, \
+    MyWordCounterBuiltInUDF
+from pyspark.ml import Pipeline
 from pyspark.sql import Row
 
 
@@ -18,17 +20,21 @@ from pyspark.sql import Row
                              )
 
                          ])
-def test_chain_transforms(spark_session, input_data):
+def test_pipeline_transforms(spark_session, input_data):
     df = spark_session.createDataFrame(input_data)
+    tr1 = MyWordCounterPyUDF(inputCol="input_col", outputCol="output_col_1")
+    tr2 = MyWordCounterScalaUDF(inputCol="input_col", outputCol="output_col_2")
+    tr3 = MyWordCounterVectorizedUDF(inputCol="input_col", outputCol="output_col_3")
+    tr4 = MyWordCounterBuiltInUDF(inputCol="input_col", outputCol="output_col_4")
 
-    target_df = (df
-                 .transform(lambda df_1: example_py_udf(df_1, "output_col_1", df_1["input_col"]))
-                 .transform(lambda df_2: example_scala_udf(df_2, "output_col_2", "input_col"))
-                 .transform(lambda df_3: example_vectorized_udf(df_3, "output_col_3", df_3["input_col"]))
-                 .transform(lambda df_4: example_built_in_udf(df_4, "output_col_4", df_4["input_col"]))
-                 )
+    pipeline = Pipeline(stages=[tr1, tr2, tr3, tr4])
+    pipeline_model = pipeline.fit(df)
+    target_df = pipeline_model.transform(df)
+
     target_df.explain()
 
     target_df.show()
 
     assert target_df.count() == 6
+
+

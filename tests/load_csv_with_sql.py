@@ -37,3 +37,10 @@ def test_load_csv(spark_session):
     df = spark_session.sql("select * from churn")
 
     df.show()
+    spark_session.sql("""DROP TABLE IF EXISTS churn_csv""")
+
+    spark_session.sql("""
+       CREATE TABLE  churn_csv
+       USING csv OPTIONS (header true, mode 'overwrite', path '/tmp/churn')
+       AS SELECT * FROM churn
+       """)

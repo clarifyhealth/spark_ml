@@ -22,13 +22,13 @@ def spark_session(request):
     Args:
         request: pytest.FixtureRequest object
     """
-    lib_dir = Path(__file__).parent.joinpath('udf/')
+    lib_dir = Path(__file__).parent.joinpath('jars/')
 
     session = SparkSession.builder.appName("pytest-pyspark-local-testing") \
         .master("local[2]") \
         .config("spark.jars", f"file://{lib_dir.joinpath('spark-demo-assembly-0.1.jar')}") \
         .enableHiveSupport().getOrCreate()
-    session.udf.registerJavaFunction("word_count", "com.clarify.WordCount", LongType())
+    session.udf.registerJavaFunction("word_count", "com.clarify.udf.WordCount", LongType())
 
     request.addfinalizer(lambda: session.stop())
 
